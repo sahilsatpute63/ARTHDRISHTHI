@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#003D34" />
+  <title>Sign In — Financial Flight Simulator</title>
+  <meta name="description" content="Sign in to Financial Flight Simulator, the AI-powered personal finance platform to predict risk, balance your life, and secure your future." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="login.css" />
+</head>
+<body>
+  <!-- Shared SVG definitions -->
+  <svg class="svg-defs" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#F3D58A" />
+        <stop offset="0.55" stop-color="#D9B45B" />
+        <stop offset="1" stop-color="#A77B2B" />
+      </linearGradient>
+      <linearGradient id="greenGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#0B5A50" />
+        <stop offset="1" stop-color="#003D34" />
+      </linearGradient>
+      <symbol id="logo-mark" viewBox="0 0 100 90">
+        <path d="M12 76 A36 36 0 0 1 40 30" fill="none" stroke="url(#goldGrad)" stroke-width="5" stroke-linecap="round" />
+        <path d="M22 80 A26 26 0 0 1 34 50" fill="none" stroke="url(#goldGrad)" stroke-width="2.5" stroke-linecap="round" opacity="0.8" />
+        <rect x="34" y="58" width="10" height="26" rx="1.5" class="logo-bar" />
+        <rect x="50" y="46" width="10" height="38" rx="1.5" class="logo-bar" />
+        <rect x="66" y="32" width="10" height="52" rx="1.5" class="logo-bar" />
+        <path d="M14 74 C 36 60, 56 42, 80 18" fill="none" stroke="url(#goldGrad)" stroke-width="4.5" stroke-linecap="round" />
+        <path d="M96 4 L72 11 L80 15 L76 24 L84 19 L89 27 Z" fill="url(#goldGrad)" />
+      </symbol>
+    </defs>
+  </svg>
+
+  <div class="page">
+    <!-- ============ LEFT: PROMOTIONAL PANEL ============ -->
+    <section class="promo" aria-labelledby="promo-heading">
+      <svg class="promo-curves" viewBox="0 0 900 1024" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M-40 230 C 160 120, 380 40, 640 -20" />
+        <path d="M-40 250 C 170 140, 400 60, 680 -20" opacity="0.5" />
+        <path d="M-20 1060 C 120 960, 260 930, 420 1060" />
+        <path d="M-40 980 C 60 930, 180 920, 300 1060" opacity="0.5" />
+        <path d="M680 -10 C 720 60, 760 110, 900 140" opacity="0.6" />
+      </svg>
+
+      <div class="promo-art" aria-hidden="true">
+        <img src="assets/workspace.png" alt="" width="928" height="1152" />
+      </div>
+
+      <p class="promo-script promo-script--top" aria-hidden="true">Your<br />Finances<br />Your Future</p>
+      <p class="promo-script promo-script--bottom" aria-hidden="true">Small Decisions<br />Big Futures &rarr;</p>
+
+      <div class="promo-content">
+        <header class="brand">
+          <svg class="brand-mark" aria-hidden="true"><use href="#logo-mark" /></svg>
+          <div class="brand-text">
+            <span class="brand-name">Financial<br />Flight Simulator</span>
+            <span class="brand-tagline">Predict &bull; Plan &bull; Prosper</span>
+          </div>
+        </header>
+
+        <h1 id="promo-heading" class="headline">
+          <span>Predict the <em>Risk.</em></span>
+          <span>Balance Your <em>Life.</em></span>
+          <span>Secure <em>Your Future.</em></span>
+        </h1>
+
+        <p class="lede">An AI-powered personal finance platform to help you track, plan, and optimize your financial journey with clarity and confidence.</p>
+
+        <ul class="features">
+          <li>
+            <button type="button" class="feature" data-feature="insights" aria-haspopup="dialog">
+            <span class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 3v16a2 2 0 0 0 2 2h16" /><path d="M18 17V9" /><path d="M13 17V5" /><path d="M8 17v-3" /></svg>
+            </span>
+            <span class="feature-text">
+              <strong>Smart Insights</strong>
+              <span>Understand your spending patterns</span>
+            </span>
+              <svg class="feature-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="feature" data-feature="goals" aria-haspopup="dialog">
+            <span class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" /></svg>
+            </span>
+            <span class="feature-text">
+              <strong>Goal Planning</strong>
+              <span>Achieve your financial dreams</span>
+            </span>
+              <svg class="feature-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="feature" data-feature="simulation" aria-haspopup="dialog">
+            <span class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 20h18" /><polyline points="21 6 13.5 13.5 9 9 3 15" /><polyline points="15 6 21 6 21 12" /></svg>
+            </span>
+            <span class="feature-text">
+              <strong>Future Simulation</strong>
+              <span>See the impact before it happens</span>
+            </span>
+              <svg class="feature-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="feature" data-feature="health" aria-haspopup="dialog">
+            <span class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /><path d="M9 12h6" /><path d="M12 9v6" /></svg>
+            </span>
+            <span class="feature-text">
+              <strong>Stay Financially Healthy</strong>
+              <span>Detect risks and get recommendations</span>
+            </span>
+              <svg class="feature-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+            </button>
+          </li>
+        </ul>
+
+        <aside class="ai-card">
+          <span class="ai-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" /><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z" /><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4" /><path d="M17.599 6.5a3 3 0 0 0 .399-1.375" /><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5" /><path d="M3.477 10.896a4 4 0 0 1 .585-.396" /><path d="M19.938 10.5a4 4 0 0 1 .585.396" /><path d="M6 18a4 4 0 0 1-1.967-.516" /><path d="M19.967 17.484A4 4 0 0 1 18 18" /></svg>
+          </span>
+          <div>
+            <h2>Powered by AI</h2>
+            <p>Personalized, explainable, and data-driven financial guidance.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ RIGHT: AUTH PANEL ============ -->
+    <main class="auth">
+      <svg class="auth-decor" viewBox="0 0 640 1024" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <path class="leaf" d="M470 -20 C 540 30, 600 40, 680 20 L 680 -20 Z" />
+        <path class="leaf leaf--light" d="M560 -20 C 600 60, 640 120, 700 140 L 700 -20 Z" />
+        <path class="arc" d="M500 -10 C 560 50, 610 70, 700 70" />
+        <path class="arc" d="M200 1060 C 300 960, 470 900, 700 920" />
+        <path class="arc arc--soft" d="M240 1060 C 330 980, 490 930, 700 950" />
+        <path class="leaf" d="M300 1060 C 400 990, 540 950, 700 980 L 700 1060 Z" />
+      </svg>
+
+      <div class="auth-inner">
+        <div class="card">
+          <div class="card-brand">
+            <svg class="card-mark" aria-hidden="true"><use href="#logo-mark" /></svg>
+            <div class="brand-text brand-text--dark">
+              <span class="brand-name">Financial<br />Flight Simulator</span>
+              <span class="brand-tagline">Predict &bull; Plan &bull; Prosper</span>
+            </div>
+          </div>
+
+          <h2 class="card-title">Welcome Back</h2>
+          <p class="card-subtitle">Sign in to continue your financial journey</p>
+
+          <form id="login-form" class="form" novalidate>
+            <div class="field">
+              <label for="email" class="sr-only">Email address</label>
+              <div class="input-wrap">
+                <svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="Enter your email" required aria-describedby="email-error" />
+              </div>
+              <p class="field-error" id="email-error" role="alert"></p>
+            </div>
+
+            <div class="field">
+              <label for="password" class="sr-only">Password</label>
+              <div class="input-wrap">
+                <svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
+                <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required minlength="8" aria-describedby="password-error" />
+                <button type="button" class="toggle-password" aria-label="Show password" aria-pressed="false" aria-controls="password">
+                  <svg class="icon-eye" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /><circle cx="12" cy="12" r="3" /></svg>
+                  <svg class="icon-eye-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49" /><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242" /><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143" /><path d="m2 2 20 20" /></svg>
+                </button>
+              </div>
+              <p class="field-error" id="password-error" role="alert"></p>
+            </div>
+
+            <div class="form-row">
+              <button type="button" class="link-btn" data-open="forgot-dialog">Forgot password?</button>
+            </div>
+
+            <button type="submit" class="btn-primary" id="signin-btn">
+              <span class="btn-label">Sign In</span>
+              <svg class="btn-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+              <span class="spinner" aria-hidden="true"></span>
+            </button>
+
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          </form>
+
+          <div class="divider" role="separator"><span>Or continue with</span></div>
+
+          <div class="social">
+            <button type="button" class="social-btn" data-provider="Google">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" /><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" /><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" /><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" /></svg>
+              <span>Google</span>
+            </button>
+            <button type="button" class="social-btn" data-provider="Microsoft">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="1" width="10.5" height="10.5" fill="#F25022" /><rect x="12.5" y="1" width="10.5" height="10.5" fill="#7FBA00" /><rect x="1" y="12.5" width="10.5" height="10.5" fill="#00A4EF" /><rect x="12.5" y="12.5" width="10.5" height="10.5" fill="#FFB900" /></svg>
+              <span>Microsoft</span>
+            </button>
+            <button type="button" class="social-btn" data-provider="Apple">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#111" d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701" /></svg>
+              <span>Apple</span>
+            </button>
+          </div>
+
+          <p class="signup">Don&apos;t have an account? <button type="button" class="link-btn link-btn--strong" data-open="register-dialog">Create account</button></p>
+        </div>
+
+        <div class="privacy">
+          <svg class="privacy-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path class="privacy-shield" d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+            <path class="privacy-check" d="M9 12.5l2 2 4-4.5" />
+          </svg>
+          <div>
+            <p class="privacy-title">Your data is safe and private</p>
+            <p class="privacy-text">We never share your personal information</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ============ DIALOGS ============ -->
+  <dialog class="modal" id="forgot-dialog" aria-labelledby="forgot-title">
+    <form class="modal-body" id="forgot-form" novalidate>
+      <button type="button" class="modal-close" data-close aria-label="Close dialog">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+      </button>
+      <h2 id="forgot-title" class="modal-title">Reset your password</h2>
+      <p class="modal-text">Enter the email associated with your account and we&apos;ll send you a reset link.</p>
+      <div class="field">
+        <label for="forgot-email" class="modal-label">Email address</label>
+        <div class="input-wrap">
+          <svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
+          <input id="forgot-email" type="email" autocomplete="email" placeholder="you@example.com" required aria-describedby="forgot-error" />
+        </div>
+        <p class="field-error" id="forgot-error" role="alert"></p>
+      </div>
+      <button type="submit" class="btn-primary btn-primary--sm">Send reset link</button>
+      <p class="modal-note" role="status" aria-live="polite"></p>
+    </form>
+  </dialog>
+
+  <dialog class="modal" id="register-dialog" aria-labelledby="register-title">
+    <form class="modal-body" id="register-form" novalidate>
+      <button type="button" class="modal-close" data-close aria-label="Close dialog">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+      </button>
+      <h2 id="register-title" class="modal-title">Create your account</h2>
+      <p class="modal-text">Start simulating your financial future in minutes.</p>
+      <div class="field">
+        <label for="reg-name" class="modal-label">Full name</label>
+        <div class="input-wrap">
+          <svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
+          <input id="reg-name" type="text" autocomplete="name" placeholder="Your full name" required aria-describedby="reg-name-error" />
+        </div>
+        <p class="field-error" id="reg-name-error" role="alert"></p>
+      </div>
+      <div class="field">
+        <label for="reg-email" class="modal-label">Email address</label>
+        <div class="input-wrap">
+          <svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
+          <input id="reg-email" type="email" autocomplete="email" placeholder="you@example.com" required aria-describedby="reg-email-error" />
+        </div>
+        <p class="field-error" id="reg-email-error" role="alert"></p>
+      </div>
+      <div class="field">
+        <label for="reg-password" class="modal-label">Password</label>
+        <div class="input-wrap">
+          <svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
+          <input id="reg-password" type="password" autocomplete="new-password" placeholder="At least 8 characters" required minlength="8" aria-describedby="reg-password-error" />
+        </div>
+        <p class="field-error" id="reg-password-error" role="alert"></p>
+      </div>
+      <button type="submit" class="btn-primary btn-primary--sm">Create account</button>
+      <p class="modal-note" role="status" aria-live="polite"></p>
+    </form>
+  </dialog>
+
+  <dialog class="modal" id="social-dialog" aria-labelledby="social-title">
+    <div class="modal-body">
+      <button type="button" class="modal-close" data-close aria-label="Close dialog">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+      </button>
+      <h2 id="social-title" class="modal-title">Continue with <span data-provider-name>Google</span></h2>
+      <p class="modal-text"><span data-provider-name>Google</span> sign-in isn&apos;t connected yet. Once an OAuth provider is configured on the server, this button will redirect you to <span data-provider-name>Google</span> to authorize your account.</p>
+      <button type="button" class="btn-primary btn-primary--sm" data-close>Got it</button>
+    </div>
+  </dialog>
+
+  <dialog class="modal modal--feature" id="feature-dialog" aria-labelledby="feature-title">
+    <div class="modal-body">
+      <button type="button" class="modal-close" data-close aria-label="Close dialog">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+      </button>
+      <p class="modal-eyebrow">Feature preview</p>
+      <h2 id="feature-title" class="modal-title" data-feature-title>Smart Insights</h2>
+      <p class="modal-text" data-feature-text></p>
+      <div class="feature-stat">
+        <span class="feature-stat-value" data-feature-stat></span>
+        <span class="feature-stat-label" data-feature-stat-label></span>
+      </div>
+      <ul class="feature-points" data-feature-points></ul>
+      <button type="button" class="btn-primary btn-primary--sm" data-close>Sign in to explore</button>
+    </div>
+  </dialog>
+
+  <script src="login.js" defer></script>
+</body>
+</html>

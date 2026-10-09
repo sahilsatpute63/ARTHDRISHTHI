@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#064E49" />
+  <title>Financial Flight Simulator — Predict the Risk. Balance Your Life. Secure Your Future.</title>
+  <meta name="description" content="Financial Flight Simulator: forecast cash flow, track goals, simulate future scenarios and see the domino effect of unexpected expenses." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    if (!localStorage.getItem("ffs_token")) {
+      window.location.replace("/login%20page/public/index.html");
+    }
+    window.addEventListener("pageshow", function(event) {
+      if (!localStorage.getItem("ffs_token")) {
+        window.location.replace("/login%20page/public/index.html");
+      }
+    });
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#pages">Skip to content</a>
+
+  <div class="shell">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+      <div class="brand">
+        <svg class="brand-logo" viewBox="0 0 48 48" aria-hidden="true">
+          <defs>
+            <linearGradient id="goldGrad" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0" stop-color="#A9822F" />
+              <stop offset="1" stop-color="#F1D98F" />
+            </linearGradient>
+          </defs>
+          <path d="M33 41 A18 18 0 0 1 8 15" fill="none" stroke="url(#goldGrad)" stroke-width="3.2" stroke-linecap="round" />
+          <rect x="15" y="29" width="4.5" height="11" rx="1.2" fill="url(#goldGrad)" />
+          <rect x="21.5" y="24" width="4.5" height="16" rx="1.2" fill="url(#goldGrad)" />
+          <rect x="28" y="19" width="4.5" height="21" rx="1.2" fill="url(#goldGrad)" />
+          <path d="M9 31 C18 26 28 18 40 7" fill="none" stroke="url(#goldGrad)" stroke-width="3.2" stroke-linecap="round" />
+          <path d="M31 6.5 L41.5 5.5 L40.5 16" fill="none" stroke="url(#goldGrad)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span class="brand-name">Financial<br />Flight Simulator</span>
+      </div>
+
+      <div class="profile">
+        <img class="avatar" src="assets/profile.png" alt="Profile photo" width="112" height="112" />
+        <p class="welcome">Welcome back,</p>
+        <p class="user-name" id="userName">User</p>
+      </div>
+
+      <nav class="nav">
+        <ul class="nav-list" id="navList">
+          <li><button class="nav-item is-active" data-page="overview" aria-current="page"><span class="icon" data-icon="pie"></span><span>Overview</span></button></li>
+          <li><button class="nav-item" data-page="transactions"><span class="icon" data-icon="card"></span><span>Transactions</span></button></li>
+          <li><button class="nav-item" data-page="health"><span class="icon" data-icon="activity"></span><span>Financial Health</span></button></li>
+          <li><button class="nav-item" data-page="cashflow"><span class="icon" data-icon="bars"></span><span>Cash Flow</span></button></li>
+          <li><button class="nav-item" data-page="domino"><span class="icon" data-icon="network"></span><span>Financial Domino</span></button></li>
+          <li><button class="nav-item" data-page="goals"><span class="icon" data-icon="target"></span><span>Goal Optimizer</span></button></li>
+          <li><button class="nav-item" data-page="simulator"><span class="icon" data-icon="plane"></span><span>Future Simulator</span></button></li>
+          <li><button class="nav-item" data-page="insights"><span class="icon" data-icon="sparkles"></span><span>Insights</span></button></li>
+          <li><button class="nav-item" data-page="reports"><span class="icon" data-icon="file"></span><span>Reports</span></button></li>
+          <li><button class="nav-item" data-page="settings"><span class="icon" data-icon="gear"></span><span>Settings</span></button></li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <hr class="gold-divider" />
+        <button class="logout-btn" id="logoutBtn"><span class="icon" data-icon="logout"></span><span>Log Out</span></button>
+      </div>
+    </aside>
+    <div class="drawer-overlay" id="drawerOverlay" hidden></div>
+
+    <!-- Main -->
+    <main class="main is-overview" id="main">
+      <header class="topbar">
+        <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false"><span class="icon" data-icon="menu"></span></button>
+        <div class="title-block">
+          <h1 id="pageTitle">Financial Overview</h1>
+          <p id="pageSubtitle">Predict the risk. Balance your life. Secure your future.</p>
+        </div>
+        <div class="top-actions">
+          <div class="search" id="searchWrap">
+            <span class="icon search-icon" data-icon="search"></span>
+            <label for="globalSearch" class="sr-only">Search transactions, goals and insights</label>
+            <input id="globalSearch" type="search" placeholder="Search transactions, goals, insights..." autocomplete="off" aria-controls="searchResults" aria-expanded="false" role="combobox" aria-autocomplete="list" />
+            <div class="dropdown search-results" id="searchResults" role="listbox" hidden></div>
+          </div>
+          <div class="notif" id="notifWrap">
+            <button class="icon-btn notif-btn" id="notifBtn" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" aria-controls="notifPanel">
+              <span class="icon" data-icon="bell"></span>
+              <span class="notif-dot" id="notifDot"></span>
+            </button>
+            <div class="dropdown notif-panel" id="notifPanel" hidden>
+              <div class="dropdown-head">
+                <strong>Notifications</strong>
+                <button class="link-btn" id="markAllRead">Mark all read</button>
+              </div>
+              <ul class="notif-list" id="notifList"></ul>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="pages" id="pages">
+        <!-- Overview -->
+        <section class="page is-active" data-page="overview" aria-labelledby="pageTitle">
+          <div class="summary-row">
+            <article class="card summary-card card-balance">
+              <div class="summary-head">
+                <span class="summary-icon icon-green"><span class="icon" data-icon="wallet"></span></span>
+                <h2 class="summary-label">Available Balance</h2>
+                <span class="badge badge-green" id="balanceChange">0%</span>
+              </div>
+              <p class="summary-value" id="balanceValue">₹0</p>
+              <div class="sparkline" id="balanceSpark" aria-hidden="true"></div>
+              <p class="summary-foot">vs last month</p>
+            </article>
+            <article class="card summary-card card-income">
+              <div class="summary-head">
+                <span class="summary-icon icon-gold"><span class="icon" data-icon="coins"></span></span>
+                <h2 class="summary-label">Monthly Income</h2>
+                <span class="badge badge-green" id="incomeChange">0%</span>
+              </div>
+              <p class="summary-value" id="incomeValue">₹0</p>
+              <div class="sparkline" id="incomeSpark" aria-hidden="true"></div>
+              <p class="summary-foot">vs last month</p>
+            </article>
+            <article class="card summary-card card-coach">
+              <div class="summary-head">
+                <span class="summary-icon icon-lavender"><span class="icon" data-icon="brain"></span></span>
+                <h2 class="summary-label">AI Finance Coach</h2>
+              </div>
+              <p class="coach-text">Get personalized insights and simulate your future</p>
+              <button class="btn btn-teal" data-goto="simulator">Explore scenarios <span class="icon" data-icon="arrowRight"></span></button>
+            </article>
+          </div>
+
+          <article class="card chart-card">
+            <div class="chart-head">
+              <div>
+                <h2 class="card-title" id="overviewChartTitle">7-Day Cash Flow Forecast</h2>
+                <p class="card-sub" id="overviewChartSub">Projected balance over the next 7 days</p>
+              </div>
+              <div class="chart-controls">
+                <label class="sr-only" for="overviewPeriod">Forecast period</label>
+                <div class="select-wrap">
+                  <select id="overviewPeriod" class="select period-select">
+                    <option value="7">Next 7 Days</option>
+                    <option value="30">Next 30 Days</option>
+                    <option value="60">Next 60 Days</option>
+                    <option value="90">Next 90 Days</option>
+                  </select>
+                  <span class="icon" data-icon="chevronDown"></span>
+                </div>
+                <div class="legend">
+                  <span class="legend-item"><span class="legend-dot"></span>Projected Balance</span>
+                  <span class="legend-item"><span class="legend-dash"></span><span class="reserve-label">Minimum Reserve (₹5,000)</span></span>
+                </div>
+              </div>
+            </div>
+            <div class="bar-chart" id="overviewChart"></div>
+          </article>
+
+          <article class="card tx-card">
+            <div class="tx-head">
+              <h2 class="card-title">Recent Transactions</h2>
+              <div class="tx-head-actions">
+                <span class="pill-outline">Data Updates Every 3 Hours</span>
+                <button class="link-btn" data-goto="transactions">View All Transactions <span class="icon" data-icon="chevronRight"></span></button>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table class="tx-table compact" aria-label="Recent transactions">
+                <thead>
+                  <tr><th scope="col">Merchant / Description</th><th scope="col" class="num">Amount</th><th scope="col">Category</th><th scope="col">Date</th></tr>
+                </thead>
+                <tbody id="recentTxBody"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <!-- Transactions -->
+        <section class="page" data-page="transactions" hidden>
+          <div class="stat-row" id="txStats"></div>
+          <article class="card">
+            <div class="toolbar">
+                <div class="toolbar-actions" style="display:flex; gap:12px; margin-bottom: 16px;">
+                  <button class="btn" id="uploadCsvBtn"><span class="icon" data-icon="upload-cloud"></span> Import Statement</button>
+                  <input type="file" id="csvFileInput" accept=".csv" hidden>
+                </div>
+              <div class="search inline-search">
+                <span class="icon search-icon" data-icon="search"></span>
+                <label for="txSearch" class="sr-only">Search transactions</label>
+                <input id="txSearch" type="search" placeholder="Search merchant or description..." />
+              </div>
+              <label class="sr-only" for="txType">Type</label>
+              <div class="select-wrap">
+                <select id="txType" class="select">
+                  <option value="all">All types</option>
+                  <option value="expense">Expenses</option>
+                  <option value="income">Income</option>
+                </select>
+                <span class="icon" data-icon="chevronDown"></span>
+              </div>
+              <button class="btn btn-teal" id="addTxBtn"><span class="icon" data-icon="plus"></span> Add Transaction</button>
+            </div>
+            <div class="chip-row" id="txChips" role="group" aria-label="Filter by category"></div>
+            <div class="table-wrap">
+              <table class="tx-table" aria-label="All transactions">
+                <thead>
+                  <tr><th scope="col">Merchant / Description</th><th scope="col" class="num">Amount</th><th scope="col">Category</th><th scope="col">Date</th><th scope="col" class="hide-sm">Method</th></tr>
+                </thead>
+                <tbody id="txBody"></tbody>
+              </table>
+            </div>
+            <p class="empty" id="txEmpty" hidden>No transactions match your filters.</p>
+          </article>
+        </section>
+
+        <!-- Financial Health -->
+        <section class="page" data-page="health" hidden>
+          <div class="grid-2">
+            <article class="card">
+              <h2 class="card-title">Health Score</h2>
+              <p class="card-sub">Illustrative score based on demo spending split, savings rate and reserve coverage.</p>
+              <div class="health-large" id="healthLarge"></div>
+            </article>
+            <article class="card">
+              <h2 class="card-title">Score Factors</h2>
+              <p class="card-sub">What moves your score up or down.</p>
+              <ul class="factor-list" id="factorList"></ul>
+            </article>
+          </div>
+          <article class="card">
+            <h2 class="card-title">Spending split vs. 50/30/20 guideline</h2>
+            <p class="card-sub">Your actual split compared to a common budgeting benchmark.</p>
+            <div class="compare-bars" id="splitCompare"></div>
+          </article>
+        </section>
+
+        <!-- Cash Flow -->
+        <section class="page" data-page="cashflow" hidden>
+          <div class="stat-row" id="cfStats"></div>
+          <article class="card chart-card">
+            <div class="chart-head">
+              <div>
+                <h2 class="card-title" id="cfChartTitle">Cash Flow Forecast</h2>
+                <p class="card-sub">Projected balance with your minimum reserve line</p>
+              </div>
+              <div class="chart-controls">
+                <label class="sr-only" for="cfPeriod">Forecast period</label>
+                <div class="select-wrap">
+                  <select id="cfPeriod" class="select period-select">
+                    <option value="7">Next 7 Days</option>
+                    <option value="30">Next 30 Days</option>
+                    <option value="60">Next 60 Days</option>
+                    <option value="90">Next 90 Days</option>
+                  </select>
+                  <span class="icon" data-icon="chevronDown"></span>
+                </div>
+              </div>
+            </div>
+            <div class="bar-chart tall" id="cfChart"></div>
+          </article>
+          <article class="card">
+            <h2 class="card-title">Upcoming Bills</h2>
+            <p class="card-sub">Known outflows already included in the forecast.</p>
+            <ul class="bill-list" id="billList"></ul>
+          </article>
+        </section>
+
+        <!-- Financial Domino -->
+        <section class="page" data-page="domino" hidden>
+          <div class="grid-2 domino-grid">
+            <article class="card">
+              <h2 class="card-title">Trigger Event</h2>
+              <p class="card-sub">Edit the event to see how it ripples through your finances. This is hypothetical and never changes your real transactions.</p>
+              <form class="form" id="dominoForm" novalidate>
+                <div class="field">
+                  <label for="dominoEvent">Event</label>
+                  <input id="dominoEvent" type="text" value="Unexpected expense" maxlength="40" />
+                </div>
+                <div class="field">
+                  <label for="dominoAmount">Amount (₹)</label>
+                  <input id="dominoAmount" type="number" min="0" max="500000" step="100" value="5000" inputmode="numeric" />
+                  <p class="field-error" id="dominoError" hidden></p>
+                </div>
+                <div class="field">
+                  <span class="label">Quick presets</span>
+                  <div class="chip-row" id="dominoPresets">
+                    <button type="button" class="chip" data-event="Phone repair" data-amount="3500">Phone repair · ₹3,500</button>
+                    <button type="button" class="chip" data-event="Unexpected expense" data-amount="5000">Unexpected expense · ₹5,000</button>
+                    <button type="button" class="chip" data-event="Medical bill" data-amount="12000">Medical bill · ₹12,000</button>
+                    <button type="button" class="chip" data-event="Bike accident" data-amount="20000">Bike accident · ₹20,000</button>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="dominoGoal">Goal affected</label>
+                  <div class="select-wrap">
+                    <select id="dominoGoal" class="select"></select>
+                    <span class="icon" data-icon="chevronDown"></span>
+                  </div>
+                </div>
+              </form>
+            </article>
+            <article class="card">
+              <h2 class="card-title">Consequence Chain</h2>
+              <p class="card-sub">How the event cascades.</p>
+              <div class="domino-chain large" id="dominoChainLarge"></div>
+              <div class="danger-panel" id="dominoExplain"></div>
+            </article>
+          </div>
+          <article class="card">
+            <h2 class="card-title">Alternative Scenarios</h2>
+            <p class="card-sub">Ways to soften the impact of the same event.</p>
+            <div class="alt-grid" id="dominoAlts"></div>
+          </article>
+        </section>
+
+        <!-- Goal Optimizer -->
+        <section class="page" data-page="goals" hidden>
+          <article class="card">
+            <div class="toolbar">
+              <div class="field inline-field">
+                <label for="goalContribution">Monthly savings toward goals (₹)</label>
+                <input id="goalContribution" type="number" min="0" step="500" value="5000" inputmode="numeric" />
+              </div>
+              <button class="btn btn-teal" id="addGoalBtn"><span class="icon" data-icon="plus"></span> Add Goal</button>
+            </div>
+          </article>
+          <div class="goal-grid" id="goalGrid"></div>
+          <article class="card">
+            <h2 class="card-title">Optimized Allocation</h2>
+            <p class="card-sub">Your monthly savings split by remaining amount, with an estimated completion time.</p>
+            <div class="table-wrap">
+              <table class="tx-table" aria-label="Goal allocation plan">
+                <thead><tr><th scope="col">Goal</th><th scope="col" class="num">Remaining</th><th scope="col" class="num">Monthly allocation</th><th scope="col" class="num">Est. completion</th></tr></thead>
+                <tbody id="allocBody"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <!-- Future Simulator -->
+        <section class="page" data-page="simulator" hidden>
+          <div class="grid-2 sim-grid">
+            <article class="card">
+              <h2 class="card-title">Scenario Inputs</h2>
+              <p class="card-sub">Hypothetical only — your real balance and transactions are not changed.</p>
+              <form class="form" id="simForm" novalidate>
+                <div class="field">
+                  <label for="simIncome">Income change <output id="simIncomeOut" for="simIncome">0%</output></label>
+                  <input id="simIncome" type="range" min="-50" max="50" step="1" value="0" />
+                </div>
+                <div class="field">
+                  <label for="simExpense">One-time unexpected expense (₹)</label>
+                  <input id="simExpense" type="number" min="0" step="500" value="0" inputmode="numeric" />
+                </div>
+                <div class="field">
+                  <label for="simRent">Monthly rent increase (₹)</label>
+                  <input id="simRent" type="number" min="0" step="250" value="0" inputmode="numeric" />
+                </div>
+                <div class="field">
+                  <label for="simSavings">Savings adjustment <output id="simSavingsOut" for="simSavings">+0 pts</output></label>
+                  <input id="simSavings" type="range" min="-16" max="30" step="1" value="0" />
+                </div>
+                <div class="field">
+                  <label for="simHorizon">Horizon</label>
+                  <div class="select-wrap">
+                    <select id="simHorizon" class="select">
+                      <option value="3">3 months</option>
+                      <option value="6" selected>6 months</option>
+                      <option value="12">12 months</option>
+                    </select>
+                    <span class="icon" data-icon="chevronDown"></span>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-ghost" id="simReset">Reset scenario</button>
+              </form>
+            </article>
+            <article class="card">
+              <h2 class="card-title">Baseline vs. Hypothetical</h2>
+              <p class="card-sub" id="simSummary">Projected balance over time.</p>
+              <div class="sim-compare" id="simCompare"></div>
+              <div class="line-chart" id="simChart"></div>
+            </article>
+          </div>
+        </section>
+
+        <!-- Insights -->
+        <section class="page" data-page="insights" hidden>
+          <div class="insight-grid" id="insightGrid"></div>
+        </section>
+
+        <!-- Reports -->
+        <section class="page" data-page="reports" hidden>
+          <article class="card">
+            <form class="toolbar" id="reportFilters" novalidate>
+              <div class="field inline-field">
+                <label for="repFrom">From</label>
+                <input id="repFrom" type="date" value="2024-09-01" />
+              </div>
+              <div class="field inline-field">
+                <label for="repTo">To</label>
+                <input id="repTo" type="date" value="2024-10-31" />
+              </div>
+              <div class="field inline-field">
+                <label for="repCategory">Category</label>
+                <div class="select-wrap">
+                  <select id="repCategory" class="select"></select>
+                  <span class="icon" data-icon="chevronDown"></span>
+                </div>
+              </div>
+              <button type="button" class="btn btn-teal" id="exportCsv"><span class="icon" data-icon="download"></span> Export CSV</button>
+            </form>
+            <p class="field-error" id="repError" hidden></p>
+          </article>
+          <div class="stat-row" id="repStats"></div>
+          <div class="grid-2">
+            <article class="card">
+              <h2 class="card-title">Spending by Category</h2>
+              <div class="cat-bars" id="repCats"></div>
+            </article>
+            <article class="card">
+              <h2 class="card-title">Transactions in Period</h2>
+              <div class="table-wrap">
+                <table class="tx-table" aria-label="Report transactions">
+                  <thead><tr><th scope="col">Merchant</th><th scope="col" class="num">Amount</th><th scope="col">Date</th></tr></thead>
+                  <tbody id="repBody"></tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- Settings -->
+        <section class="page" data-page="settings" hidden>
+          <div class="grid-2">
+            <article class="card">
+              <h2 class="card-title">Forecast &amp; Reserve</h2>
+              <form class="form" id="settingsForm" novalidate>
+                <div class="field">
+                  <label for="setReserve">Minimum reserve (₹)</label>
+                  <input id="setReserve" type="number" min="0" max="1000000" step="500" inputmode="numeric" />
+                  <p class="field-error" id="setReserveError" hidden></p>
+                </div>
+                <div class="field">
+                  <label for="setPeriod">Default forecast period</label>
+                  <div class="select-wrap">
+                    <select id="setPeriod" class="select">
+                      <option value="7">7 days</option>
+                      <option value="30">30 days</option>
+                      <option value="60">60 days</option>
+                      <option value="90">90 days</option>
+                    </select>
+                    <span class="icon" data-icon="chevronDown"></span>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-teal">Save settings</button>
+              </form>
+            </article>
+            <article class="card">
+              <h2 class="card-title">Notifications</h2>
+              <div class="toggle-list" id="notifPrefs"></div>
+            </article>
+          </div>
+          <article class="card danger-zone">
+            <div>
+              <h2 class="card-title">Reset demo data</h2>
+              <p class="card-sub">Restore all transactions, goals and settings to the original demo values.</p>
+            </div>
+            <button class="btn btn-danger" id="resetData">Reset demo data</button>
+          </article>
+        </section>
+      </div>
+
+      <!-- Overview right column -->
+      <aside class="overview-aside" id="overviewAside" aria-label="Financial summary">
+        <article class="card health-card">
+          <div class="card-row">
+            <h2 class="card-title">Financial Health</h2>
+            <div class="tip">
+              <button class="icon-btn tiny" id="healthInfoBtn" aria-label="About this score" aria-describedby="healthTip" aria-expanded="false"><span class="icon" data-icon="info"></span></button>
+              <div class="tooltip" role="tooltip" id="healthTip" hidden>Illustrative demo score. It combines your Needs/Wants/Savings split, savings rate and reserve coverage. Not financial advice.</div>
+            </div>
+            <div class="more">
+              <button class="icon-btn tiny more-btn" id="healthMoreBtn" aria-label="More options" aria-haspopup="true" aria-expanded="false"><span class="icon" data-icon="more"></span></button>
+              <div class="dropdown more-menu" id="healthMenu" hidden>
+                <button class="menu-item" data-goto="health">View health details</button>
+                <button class="menu-item" data-goto="reports">Open reports</button>
+              </div>
+            </div>
+          </div>
+          <div class="health-body" id="healthMini"></div>
+        </article>
+
+        <article class="card domino-card" id="dominoCard" role="button" tabindex="0" aria-label="Open Financial Domino view">
+          <div class="card-row">
+            <span class="alert-icon"><span class="icon" data-icon="alert"></span></span>
+            <h2 class="card-title">Financial Domino Alert</h2>
+            <span class="icon chevron" data-icon="chevronRight"></span>
+          </div>
+          <div class="domino-chain" id="dominoChainMini"></div>
+          <p class="danger-panel small" id="dominoMiniText"></p>
+        </article>
+
+        <article class="card goals-card">
+          <div class="card-row">
+            <h2 class="card-title">Goal Optimizer</h2>
+            <div class="goals-count"><strong id="goalsOnTrack">3/3</strong><span>Goals on track</span></div>
+            <button class="icon-btn tiny plain" data-goto="goals" aria-label="Open Goal Optimizer"><span class="icon" data-icon="chevronRight"></span></button>
+          </div>
+          <ul class="goal-mini-list" id="goalMiniList"></ul>
+        </article>
+      </aside>
+    </main>
+  </div>
+
+  <dialog class="modal" id="modal" aria-labelledby="modalTitle">
+    <div class="modal-inner">
+      <div class="modal-head">
+        <h2 id="modalTitle">Modal</h2>
+        <button class="icon-btn tiny" id="modalClose" aria-label="Close dialog"><span class="icon" data-icon="x"></span></button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  
+  <!-- Firebase App (the core Firebase SDK) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <!-- Initialize Firebase -->
+  <script>
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyCjObF7HezxGWpjOwELwPFy-xw0OE6P1Gw",
+        authDomain: "arthdrishthi.firebaseapp.com",
+        projectId: "arthdrishthi",
+        storageBucket: "arthdrishthi.firebasestorage.app",
+        messagingSenderId: "565991731251",
+        appId: "1:565991731251:web:6fb5557b72436f64887346",
+        measurementId: "G-V3VFJMG7DY"
+      };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+
+    <!-- CSV Preview Modal -->
+
+    <!-- Import File Modal -->
+    <dialog id="importModal" class="modal">
+      <div class="modal-content" style="max-width: 500px; text-align: center;">
+        <h2 class="card-title">Import Statement</h2>
+        <p class="card-sub">Upload your bank statement (.csv, .xlsx, .xls, .pdf)</p>
+        <div id="dropZone" style="border: 2px dashed var(--b-300); border-radius: 8px; padding: 40px; margin: 20px 0; cursor: pointer; transition: background 0.3s;">
+          <span class="icon" data-icon="upload-cloud" style="font-size: 32px; color: var(--text-muted); margin-bottom: 12px; display: inline-block;"></span>
+          <p style="margin: 0; color: var(--text-main);">Drag & drop a file here</p>
+          <p style="margin: 8px 0; color: var(--text-muted); font-size: 14px;">or click to browse</p>
+          <input type="file" id="importFileInput" accept=".csv, .xlsx, .xls, .pdf" hidden>
+        </div>
+        <div id="importFileDetails" style="display: none; margin-bottom: 20px; text-align: left; padding: 12px; background: var(--b-100); border-radius: 6px;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="overflow:hidden; text-overflow: ellipsis; white-space: nowrap;">
+              <strong id="importFileName" style="display: block; color: var(--text-main);"></strong>
+              <span id="importFileSize" style="font-size: 12px; color: var(--text-muted);"></span>
+            </div>
+            <button class="btn btn-outline" id="importClearBtn" style="padding: 4px 8px; font-size: 12px;">Change</button>
+          </div>
+        </div>
+        <div class="modal-actions" style="justify-content: flex-end;">
+          <button class="btn btn-outline" id="importCancelBtn">Cancel</button>
+          <button class="btn" id="importProcessBtn" disabled>Process File</button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog id="csvPreviewModal" class="modal">
+      <div class="modal-content" style="max-width: 1000px; width: 90vw;">
+        <h2 class="card-title">Review Import</h2>
+        <p class="card-sub" id="csvPreviewStats"></p>
+        
+        <div style="display:flex; gap:16px; margin-bottom: 16px; font-size: 14px; background: var(--b-100); padding: 12px; border-radius: 8px;">
+          <div style="flex:1"><strong>Valid Records:</strong> <span id="previewValidCount">0</span></div>
+          <div style="flex:1"><strong>Duplicates:</strong> <span id="previewDupCount">0</span></div>
+          <div style="flex:1"><strong>Total Income:</strong> <span id="previewIncome" class="tone-green">0</span></div>
+          <div style="flex:1"><strong>Total Expense:</strong> <span id="previewExpense" class="tone-red">0</span></div>
+        </div>
+
+        <div class="table-wrap" style="max-height: 400px; overflow-y: auto;">
+          <table class="tx-table compact" id="csvPreviewTable">
+            <thead>
+              <tr>
+                <th style="width: 40px;"><input type="checkbox" id="selectAllTx" checked title="Select/Deselect All"></th>
+                <th>Date</th>
+                <th>Merchant / Description</th>
+                <th class="num">Amount</th>
+                <th>Type</th>
+                <th>Category</th>
+                <th>Method</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div style="margin-top: 10px; display:flex; justify-content: space-between; align-items:center;">
+          <div id="previewPagination" style="font-size: 14px;"></div>
+          <div class="modal-actions" style="display:flex; justify-content:flex-end; gap:12px;">
+            <button class="btn btn-outline" id="csvCancelBtn">Cancel</button>
+            <button class="btn" id="csvConfirmBtn">Confirm Import</button>
+          </div>
+        </div>
+      </div>
+    </dialog>
+    
+</body>
+</html>
+
